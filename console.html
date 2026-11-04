@@ -1,70 +1,53 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>وحدة التحكم — Metalife HuB</title>
+<title>وحدة التحكم - Metalife HuB</title>
 <link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="styles.css"></head><body>
-<header><div class="wrap hd"><img src="assets/metalife-logo.png" alt="Metalife">
-<span class="wordmark">Metalife <b>HuB</b></span>
-<nav><a href="index.html">الرئيسية</a><a href="docs.html">الوثائق</a><a href="console.html" class="on">وحدة التحكم</a><a href="docs.html#compat">التوافق</a></nav></div></header>
-<div class="wrap"><section>
-<h2>وحدة تحكم المطور</h2>
-<p class="lead">كل دورة حياة التطبيق من هنا: سجّل، افتح جلسة، نفّذ الأوامر، وتابع الأحداث لحظياً. المتطلب الوحيد: منصة تعمل محلياً على المنفذ <code class="ltr">8791</code> وهذه الصفحة من <code class="ltr">http://localhost:8792</code>.</p>
-
-<div class="demo-bar">نسخة عرض عامة: وحدة التحكم تتصل بمنصة مشغّلة محلياً على جهازك (المنفذ 8791). بدونها تبقى هذه الصفحة للعرض فقط، والخطوات الكاملة في الوثائق.</div>
-<div class="step"><h3>١ · تسجيل التطبيق وإدارة المفتاح</h3>
-<div class="field"><label>اسم التطبيق</label><input id="appname" value="تطبيقي الأول"></div>
+<header><div class="wrap hd"><a class="brand" href="index.html" aria-label="Metalife HuB - الرئيسية"><span class="brand-icon"><img src="assets/metalife-logo.png" alt=""></span><span class="brand-name" dir="ltr">metalife<span>hub</span></span></a><nav aria-label="التنقل الرئيسي"><a href="index.html">الرئيسية</a><a href="docs.html">الوثائق</a><a href="console.html" class="on" aria-current="page">وحدة التحكم</a></nav><a class="nav-cta" href="docs.html#start">ابدأ التطوير <span aria-hidden="true">↖</span></a></div></header>
+<main class="console-shell wrap"><div class="console-heading"><div><div class="eyebrow">مساحة عمل المطور</div><h1>تحكّم بكل خطوة.</h1><p>تطبيقك، جلستك، وأحداثها. مساحة واحدة لدورة التطوير.</p></div><div class="connection-status"><span class="status-dot"></span> غير متصل بالخادم المحلي</div></div><div class="demo-bar on">نسخة عرض عامة، لا يوجد خادم سحابي. للاستخدام: شغّل المنصة على <code>localhost:8791</code> وافتح الواجهة من <code>localhost:8792</code>. الجلسة بلا جسر افتراضية وليست عتاداً حقيقياً.</div><div class="console-layout"><aside class="console-nav" aria-label="أقسام وحدة التحكم"><span>مساحة العمل</span><a href="#app-setup" class="on">01 <b>التطبيق والمفاتيح</b></a><a href="#session-setup">02 <b>الجلسة والأوامر</b></a><a href="#bridge-setup">03 <b>اقتران جهاز</b></a><a href="#result-panel">↙ <b>المخرجات والأحداث</b></a><div class="local-tag">محلي فقط<br><small>لا تُحفظ المفاتيح في المتصفح</small></div></aside><div class="console-forms"><div class="step" id="app-setup"><h3>١ · تسجيل التطبيق وإدارة المفتاح</h3>
+<div class="field"><label for="appname">اسم التطبيق</label><input id="appname" value="تطبيقي الأول"></div>
 <button class="btn" onclick="registerApp()">إصدار مفتاح API</button>
 <button class="btn ghost" onclick="rotateKey()">تدوير المفتاح (إبطال الحالي فوراً)</button>
 <button class="btn ghost" onclick="appStats()">إحصاءات التطبيق</button></div>
-
 <div class="step"><h3>٢ · تطبيقاتك (مفتاح المالك)</h3>
-<div class="field"><label>مفتاح المالك mlfo_ (يظهر مرة واحدة عند أول تسجيل)</label>
-<input id="ownerkey" type="password" autocomplete="off" placeholder="mlfo_..."></div>
+<div class="field"><label for="ownerkey">مفتاح المالك mlfo_ (يظهر مرة واحدة عند أول تسجيل)</label><input id="ownerkey" type="password" autocomplete="off" placeholder="mlfo_..."></div>
 <button class="btn ghost" onclick="listMyApps()">قائمة تطبيقاتي</button>
 <div id="apps"></div></div>
-
-<div class="step"><h3>٣ · فتح جلسة نظارة</h3>
-<div class="field"><label>الشركة</label><select id="vendor">
-<option value="moyoung">MoYoung MY Glasses</option><option value="solos">Solos AirGo V2</option>
-<option value="halo">Brilliant Labs Halo</option><option value="rayneo">RayNeo X2</option></select></div>
-<div class="field"><label>الجسر (اختياري — يوجّه الأوامر إلى الجهاز المقترن)</label>
-<select id="sessbridge"><option value="">— بلا جسر: جلسة افتراضية —</option></select></div>
+<div class="step" id="session-setup"><h3>٣ · فتح جلسة نظارة</h3>
+<div class="field"><label for="vendor">الشركة</label><select id="vendor">
+<option value="moyoung" disabled>MoYoung - محوّل خاص</option><option value="solos">Solos AirGo V2</option>
+<option value="halo">Brilliant Labs Halo</option><option value="rayneo" selected>RayNeo X2</option></select></div>
+<div class="field"><label for="sessbridge">الجسر (اختياري - يوجّه الأوامر إلى الجهاز المقترن)</label><select id="sessbridge"><option value="">- بلا جسر: جلسة افتراضية -</option></select></div>
 <button class="btn" onclick="openSession()">فتح جلسة</button>
 <div class="hint">مع جسر مقترن: الأوامر تُوجَّه عبر الوكيل المقترن (transport=bridge) وتبقى hardware_tested=false حتى تجربة جهاز فعلية بإذنك.</div></div>
-
 <div class="step"><h3>٤ · تنفيذ الأوامر</h3>
 <button class="btn ghost" onclick="cmd('battery')">البطارية</button>
 <button class="btn ghost" onclick="cmd('photo')">التقاط صورة</button>
 <button class="btn ghost" onclick="cmdDisplay()">عرض نص</button></div>
-
 <div class="step"><h3>٥ · إدارة الجلسات</h3>
 <button class="btn ghost" onclick="listSessions()">قائمة جلساتي</button>
 <button class="btn ghost" onclick="sweepSessions()">كنس المنتهية</button></div>
-
-<div class="step"><h3>٦ · اقتران وكيل جهاز حقيقي</h3>
+<div class="step" id="bridge-setup"><h3>٦ · اقتران وكيل جهاز حقيقي</h3>
 <p class="lead" style="margin-bottom:10px">وكيل مُجمَّع على نظارة أو هاتف داخل شبكتك المحلية؛ العناوين العامة مرفوضة أمنياً. التوكن يظهر على شاشة الوكيل فقط، ويُرسل في جسم الطلب ويُمحى من الصفحة فوراً.</p>
-<div class="field"><label>اسم الجسر</label><input id="brname" value="نظارتي"></div>
-<div class="field"><label>عنوان IP المحلي</label><input id="brhost" class="ltr" placeholder="192.168.1.50" dir="ltr"></div>
-<div class="field"><label>المنفذ</label><input id="brport" class="ltr" value="8765" dir="ltr"></div>
-<div class="field"><label>توكن الاقتران</label><input id="brtoken" type="password" class="ltr" dir="ltr" autocomplete="off"></div>
+<div class="field"><label for="brname">اسم الجسر</label><input id="brname" value="نظارتي"></div>
+<div class="field"><label for="brhost">عنوان IP المحلي</label><input id="brhost" class="ltr" placeholder="192.168.1.50" dir="ltr"></div>
+<div class="field"><label for="brport">المنفذ</label><input id="brport" class="ltr" value="8765" dir="ltr"></div>
+<div class="field"><label for="brtoken">توكن الاقتران</label><input id="brtoken" type="password" class="ltr" dir="ltr" autocomplete="off"></div>
 <button class="btn" onclick="pairBridge()">اقتران (مصافحة مباشرة)</button>
 <button class="btn ghost" onclick="listBridges()">جسوري</button>
 <button class="btn ghost" onclick="bridgePing()">فحص الجسر</button>
 <button class="btn ghost" onclick="bridgeRecord()">تسجيل صوت (٣ ثوانٍ)</button>
 <button class="btn ghost" onclick="bridgeSync()">مزامنة الوقت</button></div>
-
-<div class="step"><h3>٧ · سجل الأحداث اللحظي <span id="wsstate" class="chip sim">غير متصل</span></h3>
+</div><aside class="console-results" id="result-panel"><div class="results-top"><span class="eyebrow">الرؤية الكاملة</span><h2>المخرجات والأحداث</h2><p>الاستجابات من خادمك المحلي فقط.</p></div><div class="step"><h3>المخرجات</h3><div class="out" id="out" role="status" aria-live="polite">// النتائج تظهر هنا (JSON)</div></div><div class="step"><h3>سجل الأحداث اللحظي <span id="wsstate" class="chip sim">غير متصل</span></h3>
 <button class="btn ghost" onclick="streamEvents()">بدء البث المباشر (WebSocket)</button>
-<div class="out" id="events" style="min-height:80px">// أحداث الجلسة تظهر هنا فور وقوعها</div></div>
-
-<div class="step"><h3>المخرجات</h3><div class="out" id="out">// النتائج تظهر هنا (JSON)</div></div>
-</section></div>
-<script>
+<div class="out" id="events" role="status" aria-live="polite" style="min-height:80px">// أحداث الجلسة تظهر هنا فور وقوعها</div></div>
+<div class="results-note">لا توجد جلسة متصلة عند فتح الصفحة. لن تظهر نتيجة ناجحة من دون استجابة فعلية.</div></aside></div></main><footer><div class="wrap footer-inner"><a class="brand-name" href="index.html" dir="ltr">metalife<span>hub</span></a><p>تطوير OSH للتكنولوجيا والذكاء الاصطناعي<br><small>جميع الحقوق محفوظة</small></p><a href="docs.html#licence">التراخيص وحدود الاستخدام ↖</a></div></footer><script>
 // keep serialized JSON strictly LTR; isolate Arabic string values so they
 // render correctly (RTL internally) without reordering the JSON structure
 function mlfBidi(json){
   return json.replace(/"([^"\\]*[\u0600-\u06FF][^"\\]*)"/g, "\u2066\"$1\"\u2069");
 }
 
+function connectionState(online){const el=document.querySelector(".connection-status");el.innerHTML="<span class=\"status-dot\"></span>"+(online?"متصل بالخادم المحلي":"الخادم المحلي غير متاح");el.classList.toggle("connected",online);}
 const API = "http://localhost:8791"; let KEY = "", SID = "", WS = null;
 const out = (x) => document.getElementById('out').textContent =
   mlfBidi(typeof x === 'string' ? x : JSON.stringify(x, null, 2));
@@ -75,8 +58,8 @@ async function call(path, method="POST", body=null){
   try{
     r = await fetch(API+path, {method, headers:{"Content-Type":"application/json",
       ...(KEY?{"X-Metalife-Key":KEY}:{})}, body: body?JSON.stringify(body):null});
-  }catch(e){ throw {detail:"تعذّر الوصول إلى المنصة: "+(e && e.message || String(e))}; }
-  const j = await r.json(); if(!r.ok) throw j; return j;
+  }catch(e){ connectionState(false); throw {detail:"الخادم المحلي غير متاح. شغّله كما في الوثائق. التفاصيل: "+(e && e.message || String(e))}; }
+  connectionState(true); const j = await r.json(); if(!r.ok) throw j; return j;
 }
 async function registerApp(){ try{
   const ok = document.getElementById('ownerkey').value;
@@ -118,7 +101,7 @@ async function listMyApps(){ try{
   const box = document.getElementById('apps'); box.innerHTML = '';
   for (const a of (j.apps||[])) {
     const row = document.createElement('div');
-    row.textContent = `${a.name} (${a.app_id}) ${a.revoked?'— مُبطل':''} `;
+    row.textContent = `${a.name} (${a.app_id}) ${a.revoked?'- مُبطل':''} `;
     if (!a.revoked) {
       const b = document.createElement('button');
       b.className = 'btn ghost'; b.textContent = 'إبطال';
@@ -136,7 +119,7 @@ async function revokeApp(appId){ try{
 async function listBridges(){ try{
   const j = await call("/v1/bridges","GET"); out(j);
   const sel = document.getElementById('sessbridge');
-  sel.innerHTML = '<option value="">— بلا جسر: جلسة افتراضية —</option>';
+  sel.innerHTML = '<option value="">- بلا جسر: جلسة افتراضية -</option>';
   for (const b of (j.bridges||[])) {
     const o = document.createElement('option');
     o.value = b.bridge_id;
