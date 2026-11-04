@@ -1,25 +1,22 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>الوثائق — Metalife HuB</title>
+<title>الوثائق - Metalife HuB</title>
 <link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="styles.css"></head><body>
-<header><div class="wrap hd"><img src="assets/metalife-logo.png" alt="Metalife">
-<span class="wordmark">Metalife <b>HuB</b></span>
-<nav><a href="index.html">الرئيسية</a><a href="docs.html" class="on">الوثائق</a><a href="console.html">وحدة التحكم</a><a href="docs.html#compat">التوافق</a></nav></div></header>
+<header><div class="wrap hd"><a class="brand" href="index.html" aria-label="Metalife HuB - الرئيسية"><span class="brand-icon"><img src="assets/metalife-logo.png" alt=""></span><span class="brand-name" dir="ltr">metalife<span>hub</span></span></a><nav aria-label="التنقل الرئيسي"><a href="index.html">الرئيسية</a><a href="docs.html" class="on" aria-current="page">الوثائق</a><a href="console.html">وحدة التحكم</a></nav><a class="nav-cta" href="docs.html#start">ابدأ التطوير <span aria-hidden="true">↖</span></a></div></header>
 <div class="wrap docs">
 <aside class="side">
 <a href="#start" class="on">البداية السريعة</a><a href="#arch">البنية</a><a href="#libs">المكتبات الأربع</a>
 <a href="#moyoung">بروتوكول MoYoung</a><a href="#api">واجهة المنصة API</a><a href="#bridge">بروتوكول الجسر</a><a href="#compat">مصفوفة التحقق</a><a href="#licence">التراخيص والحدود</a>
 </aside>
 <main class="doc">
-<h2>وثائق Metalife HuB</h2>
-<p class="lead">الأكواد والواجهات بالإنجليزية، والشرح بالعربية.</p>
+<div class="doc-heading"><div class="eyebrow">دليل المطور</div><h1>ابدأ من هنا.</h1><p class="lead">من إعداد خادمك المحلي إلى أول جلسة. الأكواد بالإنجليزية، والشرح بالعربية.</p></div><div class="doc-overview"><a href="#start"><b>01</b> جهّز البيئة ↙</a><a href="#api"><b>02</b> استكشف الواجهة ↙</a><a href="#compat"><b>03</b> افهم التوافق ↙</a></div><div class="notice">الموقع المنشور يعرض الواجهات فقط. المكتبات ومصادر الخادم خاصة وغير منشورة؛ أوامر التثبيت التالية لمن يملك نسخة المشروع المحلية.</div>
 
 <h3 id="start">البداية السريعة</h3>
-<p>ثبّت النواة ومكتبات النظارات من المستودع المحلي، ثم افتح جلسة افتراضية. نفس الاستدعاءات تعمل على الجهاز الفعلي عند فتح مسار الشركة المصنّعة.</p>
-<pre># المنصة الأساسية (مصادر نظيفة الحقوق)
+<p>ثبّت النواة ومكتبات النظارات من المستودع المحلي، ثم افتح جلسة افتراضية. الانتقال إلى جهاز فعلي يحتاج استيفاء متطلبات مساره واختباره على العتاد؛ لم يُنفّذ هذا الاختبار بعد.</p>
+<pre># من مجلد المشروع المحلي الخاص
 pip install -e packages/metalife-core -e packages/metalife-solos \
             -e packages/metalife-halo -e packages/metalife-rayneo
-# packages/metalife-moyoung غير مضمّن في هذه المجموعة المنشورة (ملحق خاص بحقوق غير محسومة)
+# packages/metalife-moyoung غير مضمّن في مجموعة المصادر الأساسية (ملحق خاص بحقوق غير محسومة)
 pip install fastapi 'uvicorn[standard]'
 (cd apps/platform-api && uvicorn app.main:app --port 8791) &
 # الموقع ووحدة التحكم: python -m http.server 8792 من apps/developer-platform</pre>
@@ -29,14 +26,14 @@ pip install fastapi 'uvicorn[standard]'
 
 <h3 id="libs">المكتبات الأربع</h3>
 <ul>
-<li><b>metalife-moyoung</b> — يعكس CRPBleClient/CRPBleConnection من وثائق الشركة 1:1 بأسماء بايثون، مع ترميز protobuf حقيقي.</li>
-<li><b>metalife-solos</b> — سطح v5.9.2 الموثّق (صوت PCM، سماعة، كاميرا V2، RTMP، اتجاه الرأس — اتجاه فقط وليس تتبع نظرة).</li>
-<li><b>metalife-halo</b> — مبني على brilliant-sdk الرسمي (BSD 3-Clause) الذي يدعم Halo وFrame: رسائل BLE مباشرة (نص، التقاط، صوت، IMU، لمس).</li>
-<li><b>metalife-rayneo</b> — جسر مرافق TCP/NDJSON (بروتوكول v1.1 بمصادقة توكن) لوكيل على الجهاز مبني بـxg.glass (Apache-2.0)، بلا أي مكونات من الشركة في المسارات الأساسية.</li>
+<li><b>metalife-moyoung</b> - يعكس CRPBleClient/CRPBleConnection من وثائق الشركة 1:1 بأسماء بايثون، مع ترميز protobuf حقيقي.</li>
+<li><b>metalife-solos</b> - سطح v5.9.2 الموثّق (صوت PCM، سماعة، كاميرا V2، RTMP، اتجاه الرأس - اتجاه فقط وليس تتبع نظرة).</li>
+<li><b>metalife-halo</b> - مبني على brilliant-sdk الرسمي (BSD 3-Clause) الذي يدعم Halo وFrame: رسائل BLE مباشرة (نص، التقاط، صوت، IMU، لمس).</li>
+<li><b>metalife-rayneo</b> - جسر مرافق TCP/NDJSON (بروتوكول v1.1 بمصادقة توكن) لوكيل على الجهاز مبني بـxg.glass (Apache-2.0)، بلا أي مكونات من الشركة في المسارات الأساسية.</li>
 </ul>
 
 <h3 id="moyoung">بروتوكول MoYoung</h3>
-<p>مخطط التشغيل الحالي: <code>ble_message.proto</code> (38 رسالة) مشتق من SDK العميل 0.0.7 المُورَّد — مادة مشتقة بحقوق غير محسومة (انظر docs/DERIVED-MATERIAL.md)، لذا الملحق اختياري وللاستخدام الخاص. المخطط الموسّع (82 رسالة) من ملحق pub.dev العام: للبحث الداخلي فقط وحقوقه غير مُبرّأة. الغلاف الخارجي وعناوين GATT غير منشورة — طبقة <code>framing.py</code> موسومة «فرضية، غير مُختبَرة على عتاد» والكتابة على العتاد معطلة حتى التأكيد.</p>
+<p>مخطط التشغيل الحالي: <code>ble_message.proto</code> (38 رسالة) مشتق من SDK العميل 0.0.7 المُورَّد - مادة مشتقة بحقوق غير محسومة (انظر docs/DERIVED-MATERIAL.md)، لذا الملحق اختياري وللاستخدام الخاص. المخطط الموسّع (82 رسالة) من ملحق pub.dev العام: للبحث الداخلي فقط وحقوقه غير مُبرّأة. الغلاف الخارجي وعناوين GATT غير منشورة - طبقة <code>framing.py</code> موسومة «فرضية، غير مُختبَرة على عتاد» والكتابة على العتاد معطلة حتى التأكيد.</p>
 
 <h3 id="api">واجهة المنصة API</h3>
 <pre>POST /v1/apps                      # تسجيل تطبيق → مفتاح mlfk_...
@@ -60,13 +57,13 @@ GET  /v1/models                    # مصفوفة القدرات كاملة</pre
 ← {"id":1,"ok":true,"result":{"auth":true}}
 → {"id":2,"method":"battery","params":{}}
 ← {"id":2,"ok":true,"result":{"level":88}}</pre>
-<p>أمان المنصة: أهداف الجسر عناوين IP حرفية فقط (لا DNS)، loopback أو LAN خاص حصراً، link-local/multicast مرفوضة (بما فيها 169.254.169.254)، منافذ الوكيل المعروفة فقط (8765/8766)، ويُعاد التحقق عند كل استدعاء. التوكنات في الذاكرة فقط — لا قاعدة بيانات، لا سجلات، لا قوائم.</p>
+<p>أمان المنصة: أهداف الجسر عناوين IP حرفية فقط (لا DNS)، loopback أو LAN خاص حصراً، link-local/multicast مرفوضة (بما فيها 169.254.169.254)، منافذ الوكيل المعروفة فقط (8765/8766)، ويُعاد التحقق عند كل استدعاء. التوكنات في الذاكرة فقط - لا قاعدة بيانات، لا سجلات، لا قوائم.</p>
 
 <h3 id="compat">مصفوفة التحقق</h3>
 <p>المصدر التفصيلي في <code>docs/COMPATIBILITY.md</code>. القاعدة: «مُختبَر برمجياً» يعني على الناقل الافتراضي بحمولات البروتوكول الحقيقية حيث يعرف؛ «مُنفَّذ» يعني كود مسار حقيقي لم يُشغَّل على جهاز؛ «محظور» يعني وصول الشركة ناقص ومذكور الحل بالاسم.</p>
 
 <h3 id="licence">التراخيص والحدود</h3>
-<p>الكود ملك لشركة OSH للتكنولوجيا والذكاء الاصطناعي (حقوق محفوظة). لا يُعاد توزيع أي ثنائي للشركات المصنّعة. مخطط MoYoung (38 رسالة) مادة مشتقة من SDK العميل بحقوق غير محسومة — استخدام خاص فقط حتى تُحسم الحقوق (docs/DERIVED-MATERIAL.md)؛ والمخطط الموسّع على pub.dev (GPL-3.0) للبحث الداخلي فقط. brilliant-sdk مرخّص BSD 3-Clause وxg.glass مرخّص Apache-2.0 مع الإسناد محفوظاً. ترخيص Solos يمنع الهندسة العكسية — لذلك يقف مساره عند الوثائق حتى الاشتراك الرسمي.</p>
+<p>الكود ملك لشركة OSH للتكنولوجيا والذكاء الاصطناعي (حقوق محفوظة). لا يُعاد توزيع أي ثنائي للشركات المصنّعة. مخطط MoYoung (38 رسالة) مادة مشتقة من SDK العميل بحقوق غير محسومة - استخدام خاص فقط حتى تُحسم الحقوق (docs/DERIVED-MATERIAL.md)؛ والمخطط الموسّع على pub.dev (GPL-3.0) للبحث الداخلي فقط. brilliant-sdk مرخّص BSD 3-Clause وxg.glass مرخّص Apache-2.0 مع الإسناد محفوظاً. ترخيص Solos يمنع الهندسة العكسية - لذلك يقف مساره عند الوثائق حتى الاشتراك الرسمي.</p>
 </main></div>
-<footer><div class="wrap">Metalife HuB — OSH للتكنولوجيا والذكاء الاصطناعي · جميع الحقوق محفوظة</div></footer>
+<footer><div class="wrap footer-inner"><a class="brand-name" href="index.html" dir="ltr">metalife<span>hub</span></a><p>تطوير OSH للتكنولوجيا والذكاء الاصطناعي<br><small>جميع الحقوق محفوظة</small></p><a href="docs.html#licence">التراخيص وحدود الاستخدام ↖</a></div></footer>
 </body></html>
