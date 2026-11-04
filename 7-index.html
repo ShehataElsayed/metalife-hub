@@ -1,0 +1,123 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metalife HuB — منصة المطورين للنظارات الذكية</title>
+<link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="styles.css"></head><body>
+<header><div class="wrap hd">
+<img src="assets/metalife-logo.png" alt="Metalife">
+<span class="wordmark">Metalife <b>HuB</b></span>
+<nav><a href="index.html" class="on">الرئيسية</a><a href="docs.html">الوثائق</a><a href="console.html">وحدة التحكم</a><a href="docs.html#compat">التوافق</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+<div class="hero-a"><h1><span>منصة المطورين</span><br>لتطبيقات النظارات الذكية<br><span>ابنِ وشغّل وأدر</span></h1>
+<p class="sub">بيئة تطوير لتطبيقات النظارات الذكية: سجّل تطبيقك، افتح جلسة، نفّذ الأوامر، وتابع الأحداث لحظياً. كل قدرة موسومة بحالة تحققها.</p>
+</div>
+<div class="film"><video controls playsinline preload="metadata" poster="assets/explainer-poster.png" src="assets/explainer.mp4" aria-label="فيديو شرح المنصة"></video></div>
+<div class="hero-b">
+<div class="vendors"><span>MoYoung</span><span>Solos</span><span>Brilliant Labs Halo</span><span>RayNeo</span></div>
+<div class="cta"><a class="btn" href="docs.html">ابدأ البناء</a><a class="btn ghost" href="console.html">جرّب وحدة التحكم</a></div>
+<div class="stats">
+<div class="stat"><b>4</b><span>مكتبات توافق بايثون</span></div>
+<div class="stat"><b>38</b><span>رسالة بروتوكول من SDK العميل (MoYoung)</span></div>
+<div class="stat"><b>63</b><span>اختباراً آلياً في المجموعة المنشورة</span></div>
+<div class="stat"><b>0</b><span>ادعاءات تشغيل على عتاد لم تُختبر</span></div>
+</div></div></div></section>
+
+<section><div class="wrap">
+<h2>مكوّنات عاملة اليوم، لا خطة</h2>
+<p class="lead">أربعة مكوّنات مُنفَّذة ومغطاة بـ63 اختباراً آلياً ناجحاً في المجموعة المنشورة.</p>
+<div class="grid g4">
+<div class="card"><h3>واجهة المنصة البرمجية</h3><p>تسجيل تطبيقات بمفاتيح معزولة ومخزّنة مجزّأة، جلسات بمدة صلاحية، تدوير مفاتيح فوري، واختبارات صلاحيات سلبية.</p><span class="chip ok">عاملة + مُختبَرة</span></div>
+<div class="card"><h3>وحدة تحكم المتصفح</h3><p>دورة الحياة كاملة من الصفحة: تسجيل، مفاتيح، جلسات، أوامر، وسجل أحداث. كل زر مربوط بواجهة منفَّذة فعلاً.</p><span class="chip ok">عاملة + مُختبَرة</span></div>
+<div class="card"><h3>بث الأحداث اللحظي</h3><p>WebSocket لكل جلسة يدفع أحداثها فور وقوعها، بعزل كامل بين التطبيقات.</p><span class="chip ok">عاملة + مُختبَرة</span></div>
+<div class="card"><h3>جسر الوكلاء للأجهزة</h3><p>وكيلان مُجمَّعان (RayNeo على النظارة، MoYoung على الهاتف) بمصادقة إلزامية وتوكن اقتران على الجهاز؛ التسجيل محصور بالشبكة المحلية فقط.</p><span class="chip ok">مُجمَّع (تحقق ترجمة)</span><span class="chip sim">التشغيل على العتاد لم يُختبر</span></div>
+</div></div></section>
+
+<section><div class="wrap">
+<h2>أول المنتجات: أربع مكتبات بعقد واحد</h2>
+<p class="lead">كل مكتبة تبني على نواة <code class="ltr">metalife-core</code>: عقد واحد، جلسة واحدة، أحداث ثنائية اللغة. حالة كل قدرة معلنة بالاسم والسبب.</p>
+<div class="grid g4">
+<div class="card"><h3>metalife-moyoung</h3><p>وكيل مرافق مُجمَّع على SDK العميل 0.0.7: فحص، اتصال، بطارية، صورة، مزامنة وقت. تكامل بروتوكول سلكي حقيقي بمخطط protobuf (38 رسالة) مشتق من SDK العميل. القدرات: بطارية، كاميرا، صوت، ترجمة فورية، حوار AI، OTA.</p><span class="chip dev">المحوّل الكامل خاص حالياً: حقوق المخططات المشتقة قيد الحسم</span><span class="chip ok">مُختبَر برمجياً على البروتوكول الفعلي</span><span class="chip dev">BLE الفعلي: فرضية قناة Jieli SPP (من إعدادات OTA بـSDK العميل) — الكتابة على العتاد معطلة حتى التأكيد</span></div>
+<div class="card"><h3>metalife-solos</h3><p>سطح AirGo v5.9.2 الموثّق: ميكروفون PCM، سماعة، كاميرا V2، بث RTMP، حساس اتجاه الرأس. مسار فعلي محظور حتى وصول برنامج المطورين.</p><span class="chip ok">السطح الموثّق مُختبَر</span><span class="chip block">بانتظار ترخيص Solos</span></div>
+<div class="card"><h3>metalife-halo</h3><p>مبنية على brilliant-sdk الرسمي (BSD): شاشة، كاميرا، ميكروفون، سماعة Halo، لمس، IMU — يدعم Halo وFrame. مسار BLE حقيقي عبر SDK الشركة.</p><span class="chip impl">مُنفَّذ على SDK رسمي</span><span class="chip sim">بانتظار تشغيل على الجهاز</span></div>
+<div class="card"><h3>metalife-rayneo</h3><p>وكيل على النظارة: APK v0.2.3 مبني بـxg.glass 0.3.0 (Apache-2.0). العرض = Toast أندرويد على شاشة النظارة (ليس نص AR على العدسة)، الصورة = التقاط Camera2، البطارية = أحداث البث. كلها تحقق ترجمة فقط — السلوك على الجهاز لم يُختبر بعد. X2 معتمد من المصدر، X3 Pro غير مختبَر.</p><span class="chip ok">APK مُجمَّع + ربط SDK حقيقي (تحقق ترجمة)</span><span class="chip sim">الجهاز الحقيقي لم يُختبر</span></div>
+</div></div></section>
+
+<section style="background:#fff;border-block:1px solid var(--line)"><div class="wrap">
+<h2>ابدأ في دقيقة</h2>
+<p class="lead">جلسة افتراضية كاملة بلا عتاد، للتطوير والاختبار. الانتقال لجهاز فعلي يتطلب فتح مسار الشركة المصنّعة ثم اختبار عتاد، ولم يحدث بعد.</p>
+<pre><span class="c"># pip install metalife-moyoung</span>
+<span class="k">from</span> metalife_moyoung <span class="k">import</span> open_session
+
+g = open_session(virtual=<span class="k">True</span>)        <span class="c"># نفس الـAPI للنظارة الفعلية</span>
+<span class="k">print</span>(g.query_battery().level)     <span class="c"># 86 — ردّ حقيقي الترميز (protobuf)</span>
+g.take_photo(mode=<span class="s">"ai_recognition"</span>)
+g.start_translation()                <span class="c"># أحداث ترجمة فورية عربي ⇄ إنجليزي</span></pre>
+</div></section>
+
+
+
+<section id="playground" style="background:#fff;border-block:1px solid var(--line)"><div class="wrap">
+<div class="demo-bar">نسخة عرض عامة: الأزرار التفاعلية أدناه تعمل فقط مع منصة مشغّلة محلياً على جهازك، كما في صفحة الوثائق.</div>
+<h2>جرّبها الآن من هذه الصفحة</h2>
+<p class="lead">سجّل تطبيقاً، افتح جلسة، ونفّذ الأوامر — كل ذلك يحدث فعلاً عبر واجهة المنصة، والنتائج والأحداث تظهر أمامك لحظياً.</p>
+<p><span class="chip ok">تنفيذ حقيقي عبر واجهة المنصة</span><span class="chip sim">جهاز افتراضي معلن — hardware_tested: false</span></p>
+<p class="lead">النتائج من الجهاز الافتراضي المعلن للمنصة، لا من نظارة فعلية. الاتصال بنظارة حقيقية يتم من «وحدة التحكم» عبر جسر وكيل مقترن.</p>
+<div class="card">
+<div class="field"><label>المكتبة / النظارة</label>
+<select id="pgvendor"><option value="moyoung" disabled>MoYoung — محوّل خاص (حقوق قيد الحسم)</option><option value="solos">Solos</option><option value="halo">Brilliant Labs Halo</option><option value="rayneo" selected>RayNeo</option></select></div>
+<div style="margin:12px 0;display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn" onclick="pgStart()">١ · شغّل الجلسة الافتراضية</button>
+<button class="btn ghost" onclick="pgCmd('battery')" disabled id="pgb-battery">البطارية</button>
+<button class="btn ghost" onclick="pgCmd('photo')" disabled id="pgb-photo">التقاط صورة</button>
+<button class="btn ghost" onclick="pgDisplay()" disabled id="pgb-display">عرض نص</button>
+<input id="pgtext" value="مرحباً من Metalife HuB" style="flex:1;min-width:180px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-family:Cairo">
+</div>
+<h3>النتيجة (JSON فعلي من الواجهة)</h3>
+<div class="out" id="pgout">// اضغط «شغّل الجلسة الافتراضية» ثم نفّذ أي أمر</div>
+<h3 style="margin-top:14px">سجل الأحداث اللحظي (WebSocket)</h3>
+<div class="out" id="pgevents" style="min-height:70px">// أحداث الجلسة تظهر هنا فور وقوعها</div>
+</div></div></section>
+<section><div class="wrap">
+<h2>الصدق هندسياً، ليس شعاراً</h2>
+<p class="lead">كل قدرة تحمل حالة تحقق، وأي مسار ينقصه وصول الشركة يقول ذلك باسم الحل. لا محاكاة متنكرة.</p>
+<table><tr><th>المسار</th><th>الحالة</th><th>ما الذي يفتحه</th></tr>
+<tr><td>بروتوكول MoYoung (الرسائل)</td><td><span class="chip ok">مُختبَر برمجياً على التنسيق الفعلي</span></td><td>—</td></tr>
+<tr><td>رابط BLE الفعلي لـMoYoung</td><td><span class="chip block">فرضية معطلة</span></td><td>AE00/AE01/AE02 من إعدادات OTA فقط — يلزم التقاط جلسة BLE من التطبيق الرسمي أو تأكيد الشركة لقناة التشغيل</td></tr>
+<tr><td>مسار Solos الفعلي</td><td><span class="chip block">محظور</span></td><td>اشتراك برنامج مطوري Solos وقبول الترخيص</td></tr>
+<tr><td>مسار Halo/Frame عبر brilliant-sdk الرسمي</td><td><span class="chip impl">مُنفَّذ</span></td><td>تشغيل واحد على نظارة فعلية</td></tr>
+<tr><td>جسر RayNeo</td><td><span class="chip impl">مُنفَّذ (افتراضياً مُختبَر)</span></td><td>بناء تطبيق الوكيل وتثبيته على النظارة</td></tr>
+</table></div></section>
+
+<footer><div class="wrap">Metalife HuB — تطوير OSH للتكنولوجيا والذكاء الاصطناعي · جميع الحقوق محفوظة · التراخيص الخارجية في THIRD_PARTY_NOTICES</div></footer>
+<script>
+// keep serialized JSON strictly LTR; isolate Arabic string values so they
+// render correctly (RTL internally) without reordering the JSON structure
+function mlfBidi(json){
+  return json.replace(/"([^"\\]*[\u0600-\u06FF][^"\\]*)"/g, "\u2066\"$1\"\u2069");
+}
+
+const PGAPI = "http://localhost:8791"; let PGKEY = "", PGSID = "", PGWS = null;
+const pgout = (x) => document.getElementById('pgout').textContent = mlfBidi(typeof x === 'string' ? x : JSON.stringify(x, null, 2));
+const pgev = (x) => { const el = document.getElementById('pgevents'); el.textContent = mlfBidi(JSON.stringify(x)) + "\n" + el.textContent; };
+async function pgcall(path, method="POST", body=null){
+  let r;
+  try{ r = await fetch(PGAPI+path, {method, headers:{"Content-Type":"application/json", ...(PGKEY?{"X-Metalife-Key":PGKEY}:{})}, body: body?JSON.stringify(body):null}); }
+  catch(e){ throw {detail:"المنصة غير مشغّلة حالياً على هذا الجهاز — شغّلها محلياً كما في الوثائق ثم أعد المحاولة"}; }
+  const j = await r.json(); if(!r.ok) throw j; return j;
+}
+function pgEnable(){ for (const id of ['pgb-battery','pgb-photo','pgb-display']) document.getElementById(id).disabled = false; }
+async function pgStart(){ try{
+  const reg = await pgcall("/v1/apps","POST", {name:"playground-"+Math.random().toString(36).slice(2,8)});
+  PGKEY = reg.api_key;
+  const sess = await pgcall("/v1/sessions","POST", {vendor: document.getElementById('pgvendor').value});
+  PGSID = sess.session_id; pgout(sess); pgEnable();
+  if (PGWS) PGWS.close();
+  PGWS = new WebSocket(`ws://localhost:8791/v1/sessions/${PGSID}/events/ws?key=${encodeURIComponent(PGKEY)}`);
+  PGWS.onmessage = (m) => pgev(JSON.parse(m.data));
+ }catch(e){ pgout(e); } }
+async function pgCmd(kind){ try{ pgout(await pgcall(`/v1/sessions/${PGSID}/${kind}`)); }catch(e){ pgout(e); } }
+async function pgDisplay(){ try{ pgout(await pgcall(`/v1/sessions/${PGSID}/display`,"POST", {text: document.getElementById('pgtext').value})); }catch(e){ pgout(e); } }
+</script>
+<script>if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){document.querySelectorAll('.demo-bar').forEach(e=>e.classList.add('on'));}</script>
+</body></html>

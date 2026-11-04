@@ -1,0 +1,162 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>وحدة التحكم — Metalife HuB</title>
+<link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="styles.css"></head><body>
+<header><div class="wrap hd"><img src="assets/metalife-logo.png" alt="Metalife">
+<span class="wordmark">Metalife <b>HuB</b></span>
+<nav><a href="index.html">الرئيسية</a><a href="docs.html">الوثائق</a><a href="console.html" class="on">وحدة التحكم</a><a href="docs.html#compat">التوافق</a></nav></div></header>
+<div class="wrap"><section>
+<h2>وحدة تحكم المطور</h2>
+<p class="lead">كل دورة حياة التطبيق من هنا: سجّل، افتح جلسة، نفّذ الأوامر، وتابع الأحداث لحظياً. المتطلب الوحيد: منصة تعمل محلياً على المنفذ <code class="ltr">8791</code> وهذه الصفحة من <code class="ltr">http://localhost:8792</code>.</p>
+
+<div class="demo-bar">نسخة عرض عامة: وحدة التحكم تتصل بمنصة مشغّلة محلياً على جهازك (المنفذ 8791). بدونها تبقى هذه الصفحة للعرض فقط، والخطوات الكاملة في الوثائق.</div>
+<div class="step"><h3>١ · تسجيل التطبيق وإدارة المفتاح</h3>
+<div class="field"><label>اسم التطبيق</label><input id="appname" value="تطبيقي الأول"></div>
+<button class="btn" onclick="registerApp()">إصدار مفتاح API</button>
+<button class="btn ghost" onclick="rotateKey()">تدوير المفتاح (إبطال الحالي فوراً)</button>
+<button class="btn ghost" onclick="appStats()">إحصاءات التطبيق</button></div>
+
+<div class="step"><h3>٢ · تطبيقاتك (مفتاح المالك)</h3>
+<div class="field"><label>مفتاح المالك mlfo_ (يظهر مرة واحدة عند أول تسجيل)</label>
+<input id="ownerkey" type="password" autocomplete="off" placeholder="mlfo_..."></div>
+<button class="btn ghost" onclick="listMyApps()">قائمة تطبيقاتي</button>
+<div id="apps"></div></div>
+
+<div class="step"><h3>٣ · فتح جلسة نظارة</h3>
+<div class="field"><label>الشركة</label><select id="vendor">
+<option value="moyoung">MoYoung MY Glasses</option><option value="solos">Solos AirGo V2</option>
+<option value="halo">Brilliant Labs Halo</option><option value="rayneo">RayNeo X2</option></select></div>
+<div class="field"><label>الجسر (اختياري — يوجّه الأوامر إلى الجهاز المقترن)</label>
+<select id="sessbridge"><option value="">— بلا جسر: جلسة افتراضية —</option></select></div>
+<button class="btn" onclick="openSession()">فتح جلسة</button>
+<div class="hint">مع جسر مقترن: الأوامر تُوجَّه عبر الوكيل المقترن (transport=bridge) وتبقى hardware_tested=false حتى تجربة جهاز فعلية بإذنك.</div></div>
+
+<div class="step"><h3>٤ · تنفيذ الأوامر</h3>
+<button class="btn ghost" onclick="cmd('battery')">البطارية</button>
+<button class="btn ghost" onclick="cmd('photo')">التقاط صورة</button>
+<button class="btn ghost" onclick="cmdDisplay()">عرض نص</button></div>
+
+<div class="step"><h3>٥ · إدارة الجلسات</h3>
+<button class="btn ghost" onclick="listSessions()">قائمة جلساتي</button>
+<button class="btn ghost" onclick="sweepSessions()">كنس المنتهية</button></div>
+
+<div class="step"><h3>٦ · اقتران وكيل جهاز حقيقي</h3>
+<p class="lead" style="margin-bottom:10px">وكيل مُجمَّع على نظارة أو هاتف داخل شبكتك المحلية؛ العناوين العامة مرفوضة أمنياً. التوكن يظهر على شاشة الوكيل فقط، ويُرسل في جسم الطلب ويُمحى من الصفحة فوراً.</p>
+<div class="field"><label>اسم الجسر</label><input id="brname" value="نظارتي"></div>
+<div class="field"><label>عنوان IP المحلي</label><input id="brhost" class="ltr" placeholder="192.168.1.50" dir="ltr"></div>
+<div class="field"><label>المنفذ</label><input id="brport" class="ltr" value="8765" dir="ltr"></div>
+<div class="field"><label>توكن الاقتران</label><input id="brtoken" type="password" class="ltr" dir="ltr" autocomplete="off"></div>
+<button class="btn" onclick="pairBridge()">اقتران (مصافحة مباشرة)</button>
+<button class="btn ghost" onclick="listBridges()">جسوري</button>
+<button class="btn ghost" onclick="bridgePing()">فحص الجسر</button>
+<button class="btn ghost" onclick="bridgeRecord()">تسجيل صوت (٣ ثوانٍ)</button>
+<button class="btn ghost" onclick="bridgeSync()">مزامنة الوقت</button></div>
+
+<div class="step"><h3>٧ · سجل الأحداث اللحظي <span id="wsstate" class="chip sim">غير متصل</span></h3>
+<button class="btn ghost" onclick="streamEvents()">بدء البث المباشر (WebSocket)</button>
+<div class="out" id="events" style="min-height:80px">// أحداث الجلسة تظهر هنا فور وقوعها</div></div>
+
+<div class="step"><h3>المخرجات</h3><div class="out" id="out">// النتائج تظهر هنا (JSON)</div></div>
+</section></div>
+<script>
+// keep serialized JSON strictly LTR; isolate Arabic string values so they
+// render correctly (RTL internally) without reordering the JSON structure
+function mlfBidi(json){
+  return json.replace(/"([^"\\]*[\u0600-\u06FF][^"\\]*)"/g, "\u2066\"$1\"\u2069");
+}
+
+const API = "http://localhost:8791"; let KEY = "", SID = "", WS = null;
+const out = (x) => document.getElementById('out').textContent =
+  mlfBidi(typeof x === 'string' ? x : JSON.stringify(x, null, 2));
+const evlog = (x) => { const el = document.getElementById('events');
+  el.textContent = mlfBidi(JSON.stringify(x)) + "\n" + el.textContent; };
+async function call(path, method="POST", body=null){
+  let r;
+  try{
+    r = await fetch(API+path, {method, headers:{"Content-Type":"application/json",
+      ...(KEY?{"X-Metalife-Key":KEY}:{})}, body: body?JSON.stringify(body):null});
+  }catch(e){ throw {detail:"تعذّر الوصول إلى المنصة: "+(e && e.message || String(e))}; }
+  const j = await r.json(); if(!r.ok) throw j; return j;
+}
+async function registerApp(){ try{
+  const ok = document.getElementById('ownerkey').value;
+  const body = {name: document.getElementById('appname').value};
+  if (ok) body.owner_key = ok;
+  const j = await call("/v1/apps","POST", body); KEY = j.api_key; out(j);
+  if (j.owner_key) document.getElementById('ownerkey').value = j.owner_key;
+ }catch(e){ out({خطأ:e.detail||e.message||String(e), ملاحظة:"شغّل المنصة أولاً واعرض الصفحة من localhost:8792"}); } }
+async function rotateKey(){ try{ const j = await call("/v1/apps/rotate-key");
+  KEY = j.api_key; out(j); }catch(e){ out(e); } }
+async function appStats(){ try{ out(await call("/v1/apps/me","GET")); }catch(e){ out(e); } }
+async function openSession(){ try{ const b = document.getElementById('sessbridge').value;
+  const body = {vendor: document.getElementById('vendor').value};
+  if (b) body.bridge_id = b;
+  const j = await call("/v1/sessions","POST", body); SID = j.session_id; out(j);
+ }catch(e){ out(e); } }
+async function cmd(kind){ try{ out(await call(`/v1/sessions/${SID}/${kind}`)); }catch(e){ out(e); } }
+async function cmdDisplay(){ try{ out(await call(`/v1/sessions/${SID}/display`,"POST",
+  {text:"مرحباً من Metalife HuB"})); }catch(e){ out(e); } }
+async function listSessions(){ try{ out(await call("/v1/sessions","GET")); }catch(e){ out(e); } }
+async function sweepSessions(){ try{ out(await call("/v1/sessions/sweep")); }catch(e){ out(e); } }
+let BID = "";
+async function pairBridge(){
+  const token = document.getElementById('brtoken').value;
+  document.getElementById('brtoken').value = "";  // secret leaves the page immediately
+  try{
+    const j = await call("/v1/bridges","POST", {
+      name: document.getElementById('brname').value,
+      host: document.getElementById('brhost').value,
+      port: parseInt(document.getElementById('brport').value),
+      token: token});
+    BID = j.bridge_id;
+    out(j);
+  }catch(e){ out(e); } }
+async function listMyApps(){ try{
+  const r = await fetch(API+"/v1/owner/apps", {headers:
+    {"X-Metalife-Owner": document.getElementById('ownerkey').value}});
+  const j = await r.json(); if(!r.ok) throw j; out(j);
+  const box = document.getElementById('apps'); box.innerHTML = '';
+  for (const a of (j.apps||[])) {
+    const row = document.createElement('div');
+    row.textContent = `${a.name} (${a.app_id}) ${a.revoked?'— مُبطل':''} `;
+    if (!a.revoked) {
+      const b = document.createElement('button');
+      b.className = 'btn ghost'; b.textContent = 'إبطال';
+      b.onclick = () => revokeApp(a.app_id);
+      row.appendChild(b);
+    }
+    box.appendChild(row);
+  }
+}catch(e){ out({خطأ:e.detail||e.message||String(e)}); } }
+async function revokeApp(appId){ try{
+  const r = await fetch(API+`/v1/owner/apps/${appId}/revoke`, {method:"POST",
+    headers:{"X-Metalife-Owner": document.getElementById('ownerkey').value}});
+  const j = await r.json(); if(!r.ok) throw j; out(j); listMyApps();
+}catch(e){ out({خطأ:e.detail||e.message||String(e)}); } }
+async function listBridges(){ try{
+  const j = await call("/v1/bridges","GET"); out(j);
+  const sel = document.getElementById('sessbridge');
+  sel.innerHTML = '<option value="">— بلا جسر: جلسة افتراضية —</option>';
+  for (const b of (j.bridges||[])) {
+    const o = document.createElement('option');
+    o.value = b.bridge_id;
+    o.textContent = `${b.name} (${b.host}:${b.port} · ${b.agent})`;
+    sel.appendChild(o);
+  }
+}catch(e){ out(e); } }
+async function bridgePing(){ try{ out(await call(`/v1/bridges/${BID}/call/ping`)); }catch(e){ out(e); } }
+async function bridgeRecord(){ try{ out(await call(`/v1/bridges/${BID}/call/record_audio`,
+  "POST", {duration_ms: 3000})); }catch(e){ out(e); } }
+async function bridgeSync(){ try{ out(await call(`/v1/bridges/${BID}/call/sync_time`,
+  "POST", {timestamp: Math.floor(Date.now()/1000)})); }catch(e){ out(e); } }
+function streamEvents(){
+  if (WS) { WS.close(); WS = null; }
+  if (!SID || !KEY) { evlog({خطأ:"افتح جلسة أولاً"}); return; }
+  WS = new WebSocket(`ws://localhost:8791/v1/sessions/${SID}/events/ws?key=${encodeURIComponent(KEY)}`);
+  WS.onopen = () => document.getElementById('wsstate').textContent = "متصل";
+  WS.onclose = () => document.getElementById('wsstate').textContent = "غير متصل";
+  WS.onmessage = (m) => evlog(JSON.parse(m.data));
+}
+try{ if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) document.querySelectorAll('.demo-bar').forEach(e=>e.classList.add('on')); }catch(e){}
+</script>
+</body></html>
